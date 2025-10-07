@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - Yan Fellippe</title>
+    <link rel="stylesheet" href="../src/styles/index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html" style="text-decoration: none; color: inherit;">Yan Fellippe</a></h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="about-me.html" class="nav-link active">Sobre</a></li>
+                    <li><a href="contact.html" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Sobre <span class="highlight">Yan Fellippe</span></h2>
+                    <p class="hero-description">
+                        Desenvolvedor Full Stack com paixão por criar soluções inovadoras e eficientes.
+                        Especializado em tecnologias modernas como JavaScript, React, Node.js e Python.
+                    </p>
+                    <p class="hero-description">
+                        Sempre em busca de novos desafios e oportunidades para aprender e crescer
+                        profissionalmente. Acredito que a tecnologia pode transformar vidas e
+                        estou comprometido em fazer parte dessa transformação.
+                    </p>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-pic">
+                        <img src="https://github.com/YanFellippe.png" alt="Yan Fellippe">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Feito com 💻 por <strong>Yan Fellippe</strong>
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yan-fellippe-gomes-basilio-3229b81b9/" target="_blank"
+                        class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade do tema para a página sobre
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Verificar tema salvo
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+
+            themeToggle.addEventListener('click', function () {
+                const currentTheme = body.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+
+            function setTheme(theme) {
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                const icon = themeToggle.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

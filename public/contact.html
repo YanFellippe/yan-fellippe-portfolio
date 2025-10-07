@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Yan Fellippe</title>
+    <link rel="stylesheet" href="../src/styles/index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html" style="text-decoration: none; color: inherit;">Yan Fellippe</a></h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="about-me.html" class="nav-link">Sobre</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Vamos <span class="highlight">conversar?</span></h2>
+                    <p class="contact-description">
+                        Estou sempre aberto a novas oportunidades, projetos interessantes
+                        e colaborações. Entre em contato comigo através dos canais abaixo
+                        ou envie uma mensagem diretamente.
+                    </p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>Email</h3>
+                                <p>yangomesbasilio@gmail.com</p>
+                                <a href="mailto:yangomesbasilio@gmail.com" class="method-link">Enviar email</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>LinkedIn</h3>
+                                <p>Vamos nos conectar profissionalmente</p>
+                                <a href="https://www.linkedin.com/in/yan-fellippe-gomes-basilio-3229b81b9/"
+                                    target="_blank" class="method-link">Ver perfil</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>GitHub</h3>
+                                <p>Confira meus projetos e contribuições</p>
+                                <a href="https://github.com/YanFellippe" target="_blank" class="method-link">Ver
+                                    repositórios</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>Localização</h3>
+                                <p>Brasil</p>
+                                <span class="method-info">Disponível para trabalho remoto</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <h3>Envie uma mensagem</h3>
+
+                        <div class="form-group">
+                            <label for="name">Nome *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Assunto *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Selecione um assunto</option>
+                                <option value="trabalho">Oportunidade de Trabalho</option>
+                                <option value="projeto">Projeto/Colaboração</option>
+                                <option value="consultoria">Consultoria</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Mensagem *</label>
+                            <textarea id="message" name="message" rows="5" required
+                                placeholder="Conte-me mais sobre seu projeto ou como posso ajudar..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Feito com 💻 por <strong>Yan Fellippe</strong>
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yan-fellippe-gomes-basilio-3229b81b9/" target="_blank"
+                        class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade do tema para a página de contato
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Verificar tema salvo
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+
+            themeToggle.addEventListener('click', function () {
+                const currentTheme = body.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+
+            function setTheme(theme) {
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                const icon = themeToggle.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+
+            // Funcionalidade do formulário de contato
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Coletar dados do formulário
+                const formData = new FormData(contactForm);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const subject = formData.get('subject');
+                const message = formData.get('message');
+
+                // Criar link mailto com os dados
+                const mailtoLink = `mailto:yanfellippe@email.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(`Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${message}`)}`;
+
+                // Abrir cliente de email
+                window.location.href = mailtoLink;
+
+                // Mostrar mensagem de sucesso
+                showSuccessMessage();
+            });
+
+            function showSuccessMessage() {
+                const button = contactForm.querySelector('button[type="submit"]');
+                const originalText = button.innerHTML;
+
+                button.innerHTML = '<i class="fas fa-check"></i> Mensagem Enviada!';
+                button.style.backgroundColor = '#10b981';
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.backgroundColor = '';
+                    button.disabled = false;
+                    contactForm.reset();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+
+</html>

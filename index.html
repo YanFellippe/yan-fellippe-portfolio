@@ -1,262 +1,332 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yan Fellippe - Desenvolvedor</title>
-    <link rel="stylesheet" href="src/styles/index.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Yan Fellippe - Desenvolvedor</title>
+        <link rel="stylesheet" href="src/styles/index.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
 
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1>Yan Fellippe</h1>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Yan Fellippe</h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#repositorios" class="nav-link">Projetos</a></li>
+                        <li><a href="#contribuicoes" class="nav-link">Contribuições</a></li>
+                        <li><a href="public/about-me.html" class="nav-link">Sobre</a></li>
+                        <li><a href="public/contact.html" class="nav-link">Contato</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#repositorios" class="nav-link">Projetos</a></li>
-                    <li><a href="#contribuicoes" class="nav-link">Contribuições</a></li>
-                    <li><a href="public/about-me.html" class="nav-link">Sobre</a></li>
-                    <li><a href="public/contact.html" class="nav-link">Contato</a></li>
-                </ul>
-            </nav>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </header>
+        </header>
 
-    <!-- Seção de Apresentação -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h2>Olá, eu sou <span class="highlight">Yan Fellippe</span></h2>
-                    <p class="hero-description">
-                        Desenvolvedor apaixonado por tecnologia, especializado em
-                        <strong>JavaScript</strong>, <strong>React</strong>, <strong>Node.js</strong>
-                        e <strong>Python</strong>. Sempre em busca de novos desafios e
-                        oportunidades para criar soluções inovadoras.
+        <!-- Seção de Apresentação -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2 class="typing-text">Olá, eu sou <span class="highlight">Yan Fellippe</span></h2>
+                        <p class="hero-description">
+                            Desenvolvedor apaixonado por tecnologia, especializado em
+                            <strong>JavaScript</strong>, <strong>React</strong>, <strong>Node.js</strong>
+                            e <strong>Python</strong>. Sempre em busca de novos desafios e
+                            oportunidades para criar soluções inovadoras.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="https://github.com/YanFellippe" target="_blank" class="btn btn-primary">
+                                <i class="fab fa-github"></i>
+                                Ver GitHub
+                            </a>
+                            <a href="#repositorios" class="btn btn-secondary">
+                                Ver Projetos
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="profile-pic">
+                            <img src="https://github.com/YanFellippe.png" alt="Yan Fellippe" id="profileImage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Estatísticas -->
+        <section id="estatisticas" class="stats-section">
+            <div class="container">
+                <h2 class="section-title">Estatísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="totalRepos">-</h3>
+                            <p class="stat-label">Repositórios</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="totalStars">-</h3>
+                            <p class="stat-label">Estrelas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="totalLanguages">-</h3>
+                            <p class="stat-label">Linguagens</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="lastUpdate">-</h3>
+                            <p class="stat-label">Última Atualização</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Linguagens -->
+                <div class="languages-chart-container">
+                    <h3 class="chart-title">Linguagens Mais Utilizadas</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="languagesChart"></canvas>
+                    </div>
+                    <div class="languages-tags" id="languagesTags">
+                        <!-- Tags das linguagens serão inseridas aqui -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Repositórios -->
+        <section id="repositorios" class="repositories">
+            <div class="container">
+                <div class="repositories-header">
+                    <h2 class="section-title">Meus Repositórios</h2>
+                    <div class="repo-counter">
+                        <span id="repoCounter">Total de - repositórios</span>
+                    </div>
+                </div>
+
+                <!-- Sistema de Busca e Filtros -->
+                <div class="search-container" id="searchContainer" style="display: none;">
+                    <div class="search-header">
+                        <h3><i class="fas fa-search"></i> Buscar Projetos</h3>
+                        <span class="results-count" id="resultsCount">Carregando...</span>
+                    </div>
+
+                    <div class="search-controls">
+                        <div class="search-bar">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="projectSearch"
+                                placeholder="Buscar por nome, descrição ou tecnologia..." autocomplete="off">
+                            <button id="clearSearch" class="clear-btn" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div class="filters">
+                            <select id="languageFilter" class="filter-select">
+                                <option value="all">Todas as linguagens</option>
+                            </select>
+
+                            <select id="typeFilter" class="filter-select">
+                                <option value="all">Todos os tipos</option>
+                                <option value="own">Meus Repositórios</option>
+                                <option value="contrib">Contribuições</option>
+                            </select>
+
+                            <select id="sortFilter" class="filter-select">
+                                <option value="updated">Mais Recentes</option>
+                                <option value="stars">Mais Estrelas</option>
+                                <option value="name">Nome A-Z</option>
+                            </select>
+
+                            <button id="resetFilters" class="reset-btn">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="activeFilters" class="active-filters" style="display: none;"></div>
+                    <div id="searchSuggestions" class="suggestions" style="display: none;"></div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Carregando repositórios...</p>
+                </div>
+                <div class="repositories-grid" id="repositoriesGrid">
+                    <!-- Os repositórios serão carregados dinamicamente via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Contribuições -->
+        <section id="contribuicoes" class="contributions">
+            <div class="container">
+                <div class="contributions-header">
+                    <h2 class="section-title">Minhas Contribuições</h2>
+                    <p class="section-subtitle">Repositórios de outros usuários onde contribuí</p>
+                    <div class="contributions-counter">
+                        <span id="contributionsCounter">Carregando contribuições...</span>
+                    </div>
+                </div>
+                <div class="loading" id="contributionsLoading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Buscando contribuições...</p>
+                </div>
+                <div class="error-message" id="contributionsError" style="display: none;">
+                    <!-- Mensagem de erro será inserida aqui -->
+                </div>
+                <div class="contributions-grid" id="contributionsGrid">
+                    <!-- As contribuições serão carregadas dinamicamente via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p class="footer-text">
+                        © 2024 <strong>Yan Fellippe</strong> - Desenvolvedor Full Stack
                     </p>
-                    <div class="hero-buttons">
-                        <a href="https://github.com/YanFellippe" target="_blank" class="btn btn-primary">
+                    <div class="social-links">
+                        <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
                             <i class="fab fa-github"></i>
-                            Ver GitHub
                         </a>
-                        <a href="#repositorios" class="btn btn-secondary">
-                            Ver Projetos
+                        <a href="https://www.linkedin.com/in/yan-fellippe-gomes-basilio-3229b81b9/" target="_blank"
+                            class="social-link">
+                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="profile-pic">
-                        <img src="https://github.com/YanFellippe.png" alt="Yan Fellippe" id="profileImage">
-                    </div>
-                </div>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Seção de Estatísticas -->
-    <section id="estatisticas" class="stats-section">
-        <div class="container">
-            <h2 class="section-title">Estatísticas</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="totalRepos">-</h3>
-                        <p class="stat-label">Repositórios</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="totalStars">-</h3>
-                        <p class="stat-label">Estrelas</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="totalLanguages">-</h3>
-                        <p class="stat-label">Linguagens</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="lastUpdate">-</h3>
-                        <p class="stat-label">Última Atualização</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Script inline para tema (garantir funcionamento) -->
+        <script>
+            console.log('🎨 Inicializando tema inline...');
 
-            <!-- Gráfico de Linguagens -->
-            <div class="languages-chart-container">
-                <h3 class="chart-title">Linguagens Mais Utilizadas</h3>
-                <div class="chart-wrapper">
-                    <canvas id="languagesChart"></canvas>
-                </div>
-                <div class="languages-tags" id="languagesTags">
-                    <!-- Tags das linguagens serão inseridas aqui -->
-                </div>
-            </div>
-        </div>
-    </section>
+            // Função para aplicar tema
+            function setTheme(theme) {
+                console.log('Aplicando tema:', theme);
+                document.body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
 
-    <!-- Seção de Repositórios -->
-    <section id="repositorios" class="repositories">
-        <div class="container">
-            <div class="repositories-header">
-                <h2 class="section-title">Meus Repositórios</h2>
-                <div class="repo-counter">
-                    <span id="repoCounter">Total de - repositórios</span>
-                </div>
-            </div>
-            <div class="loading" id="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Carregando repositórios...</p>
-            </div>
-            <div class="repositories-grid" id="repositoriesGrid">
-                <!-- Os repositórios serão carregados dinamicamente via JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Contribuições -->
-    <section id="contribuicoes" class="contributions">
-        <div class="container">
-            <div class="contributions-header">
-                <h2 class="section-title">Minhas Contribuições</h2>
-                <p class="section-subtitle">Repositórios de outros usuários onde contribuí</p>
-                <div class="contributions-counter">
-                    <span id="contributionsCounter">Carregando contribuições...</span>
-                </div>
-            </div>
-            <div class="loading" id="contributionsLoading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Buscando contribuições...</p>
-            </div>
-            <div class="error-message" id="contributionsError" style="display: none;">
-                <!-- Mensagem de erro será inserida aqui -->
-            </div>
-            <div class="contributions-grid" id="contributionsGrid">
-                <!-- As contribuições serão carregadas dinamicamente via JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    © 2024 <strong>Yan Fellippe</strong> - Desenvolvedor Full Stack
-                </p>
-                <div class="social-links">
-                    <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/yan-fellippe-gomes-basilio-3229b81b9/" target="_blank"
-                        class="social-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Script inline para tema (garantir funcionamento) -->
-    <script>
-        console.log('🎨 Inicializando tema inline...');
-
-        // Função para aplicar tema
-        function setTheme(theme) {
-            console.log('Aplicando tema:', theme);
-            document.body.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                const icon = themeToggle.querySelector('i');
-                if (icon) {
-                    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    const icon = themeToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                    }
                 }
             }
-        }
 
-        // Função para alternar tema
-        function toggleTheme() {
-            const currentTheme = document.body.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            console.log('Alternando tema:', currentTheme, '->', newTheme);
-            setTheme(newTheme);
-        }
-
-        // Função de teste rápido da API
-        async function testAPI() {
-            console.log('🧪 Testando API do GitHub...');
-            try {
-                const response = await fetch('https://api.github.com/users/YanFellippe/repos?per_page=5');
-                const repos = await response.json();
-                console.log('📦 Repositórios encontrados:', repos.length);
-                repos.forEach(repo => {
-                    console.log(`- ${repo.name} (${repo.private ? 'privado' : 'público'}, fork: ${repo.fork})`);
-                });
-            } catch (error) {
-                console.error('❌ Erro na API:', error);
-            }
-        }
-
-        // Inicializar quando DOM carregar
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOM carregado - configurando tema...');
-
-            // Aplicar tema salvo
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-
-            // Configurar botão
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                console.log('✅ Botão de tema encontrado');
-                themeToggle.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    console.log('🎨 Botão clicado!');
-                    toggleTheme();
-                });
-            } else {
-                console.error('❌ Botão de tema não encontrado');
+            // Função para alternar tema
+            function toggleTheme() {
+                const currentTheme = document.body.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                console.log('Alternando tema:', currentTheme, '->', newTheme);
+                setTheme(newTheme);
             }
 
-            // Testar API após 2 segundos
-            setTimeout(testAPI, 2000);
-        });
+            // Função de teste rápido da API
+            async function testAPI() {
+                console.log('🧪 Testando API do GitHub...');
+                try {
+                    const response = await fetch('https://api.github.com/users/YanFellippe/repos?per_page=5');
+                    const repos = await response.json();
+                    console.log('📦 Repositórios encontrados:', repos.length);
+                    repos.forEach(repo => {
+                        console.log(`- ${repo.name} (${repo.private ? 'privado' : 'público'}, fork: ${repo.fork})`);
+                    });
+                } catch (error) {
+                    console.error('❌ Erro na API:', error);
+                }
+            }
 
-        // Disponibilizar globalmente
-        window.setTheme = setTheme;
-        window.toggleTheme = toggleTheme;
-        window.testAPI = testAPI;
-    </script>
+            // Inicializar quando DOM carregar
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('DOM carregado - configurando tema...');
 
-    <script src="src/js/api.js"></script>
-    <script src="src/js/contribuitions.js"></script>
-    <script src="src/js/index.js"></script>
-</body>
+                // Aplicar tema salvo
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                setTheme(savedTheme);
+
+                // Configurar botão
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    console.log('✅ Botão de tema encontrado');
+                    themeToggle.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        console.log('🎨 Botão clicado!');
+                        toggleTheme();
+                    });
+                } else {
+                    console.error('❌ Botão de tema não encontrado');
+                }
+
+                // Testar API após 2 segundos
+                setTimeout(testAPI, 2000);
+            });
+
+            // Função para mostrar sistema de busca
+            function showSearchSystem() {
+                console.log('🔍 Mostrando sistema de busca...');
+                const searchContainer = document.getElementById('searchContainer');
+                if (searchContainer) {
+                    searchContainer.style.display = 'block';
+                    setTimeout(() => {
+                        searchContainer.classList.add('show');
+                    }, 100);
+                    console.log('✅ Sistema de busca mostrado!');
+                } else {
+                    console.warn('❌ Container de busca não encontrado');
+                }
+            }
+
+            // Mostrar busca após carregamento
+            setTimeout(() => {
+                showSearchSystem();
+            }, 3000);
+
+            // Disponibilizar globalmente
+            window.setTheme = setTheme;
+            window.toggleTheme = toggleTheme;
+            window.testAPI = testAPI;
+            window.showSearchSystem = showSearchSystem;
+        </script>
+
+        <!-- Scripts JavaScript -->
+        <script src="src/js/theme.js"></script>
+        <script src="src/js/animations.js"></script>
+        <script src="src/js/api.js"></script>
+        <script src="src/js/contribuitions.js"></script>
+        <script src="src/js/search-filters.js"></script>
+        <script src="src/js/index.js"></script>
+    </body>
 
 </html>

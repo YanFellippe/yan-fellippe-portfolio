@@ -18,7 +18,7 @@
     --card-bg: #ffffff;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
     /* Tema escuro */
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
@@ -529,78 +529,78 @@ body {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .nav-list {
         gap: 1rem;
     }
-    
+
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
     }
-    
+
     .hero-text h2 {
         font-size: 2rem;
     }
-    
+
     .hero-buttons {
         justify-content: center;
     }
-    
+
     .profile-pic {
         width: 200px;
         height: 200px;
         margin: 0 auto;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .stat-card {
         padding: 1.5rem;
     }
-    
+
     .stat-number {
         font-size: 1.5rem;
     }
-    
+
     .repo-tabs {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .tab-button {
         width: 100%;
         max-width: 250px;
         justify-content: center;
     }
-    
+
     .repositories-header {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
     }
-    
+
     .repositories-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .languages-chart-container {
         padding: 1.5rem;
     }
-    
+
     .chart-wrapper {
         max-width: 300px;
     }
-    
+
     .footer-content {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
     }
-}/* Co
+} /* Co
 ntact Section */
 .contact-section {
     padding: 4rem 0;
@@ -774,30 +774,30 @@ ntact Section */
         grid-template-columns: 1fr;
         gap: 3rem;
     }
-    
+
     .contact-info h2 {
         font-size: 2rem;
         text-align: center;
     }
-    
+
     .contact-description {
         text-align: center;
     }
-    
+
     .contact-method {
         padding: 1.25rem;
     }
-    
+
     .method-icon {
         width: 45px;
         height: 45px;
         font-size: 1.1rem;
     }
-    
+
     .contact-form-container {
         padding: 2rem;
     }
-}/* Contri
+} /* Contri
 bution Cards */
 .contribution-card {
     border-left: 4px solid var(--accent);
@@ -1033,7 +1033,7 @@ Seção de Contribuições */
     text-align: center;
 }
 
-[data-theme="dark"] .error-message {
+[data-theme='dark'] .error-message {
     background-color: #7f1d1d;
     color: #fca5a5;
 }
@@ -1043,37 +1043,36 @@ Seção de Contribuições */
     .contributions {
         padding: 60px 0;
     }
-    
+
     .contributions-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .contribution-card {
         padding: 20px;
     }
-    
+
     .contribution-header {
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .contribution-type {
         align-self: flex-start;
     }
-    
+
     .contribution-stats {
         gap: 12px;
     }
-    
+
     .contribution-footer {
         flex-direction: column;
         gap: 8px;
         align-items: flex-start;
     }
-}/
-* Estilos para contribuições detalhadas */
-.contribution-card.detailed {
+}
+/ * Estilos para contribuições detalhadas */ .contribution-card.detailed {
     position: relative;
 }
 
@@ -1264,26 +1263,26 @@ Seção de Contribuições */
         align-items: flex-start;
         gap: 4px;
     }
-    
+
     .contribution-item-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
     }
-    
+
     .toggle-details {
         width: 100%;
         justify-content: center;
     }
-    
+
     .contributions-list {
         gap: 8px;
     }
-    
+
     .contribution-item {
         padding: 10px;
     }
-}/* Estilos
+} /* Estilos
  para a página About */
 
 /* Seção de Habilidades */
@@ -1373,13 +1372,17 @@ Seção de Contribuições */
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 /* Seção de Experiência */
@@ -1588,45 +1591,45 @@ Seção de Contribuições */
     .values-section {
         padding: 60px 0;
     }
-    
+
     .skills-grid {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .skill-category {
         padding: 25px;
     }
-    
+
     .timeline {
         padding-left: 20px;
     }
-    
+
     .timeline-item {
         padding-left: 30px;
     }
-    
+
     .timeline-marker {
         left: -37px;
     }
-    
+
     .timeline-content {
         padding: 20px;
     }
-    
+
     .timeline-content:hover {
         transform: none;
     }
-    
+
     .values-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }
-    
+
     .objectives-list {
         grid-template-columns: 1fr;
     }
-    
+
     .objectives-section {
         padding: 30px 20px;
     }
@@ -1637,11 +1640,11 @@ Seção de Contribuições */
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .skill-tag {
         align-self: flex-start;
     }
-}/* 
+} /* 
 Estilos para a página de Contato */
 
 .contact-section {
@@ -1844,7 +1847,7 @@ Estilos para a página de Contato */
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .contact-info h2 {
         font-size: 2rem;
     }
@@ -1854,22 +1857,22 @@ Estilos para a página de Contato */
     .contact-section {
         padding: 60px 0;
     }
-    
+
     .contact-method {
         padding: 20px;
         flex-direction: column;
         text-align: center;
         gap: 15px;
     }
-    
+
     .method-icon {
         align-self: center;
     }
-    
+
     .contact-form-container {
         padding: 30px 20px;
     }
-    
+
     .contact-info h2 {
         font-size: 1.8rem;
     }
@@ -1879,18 +1882,18 @@ Estilos para a página de Contato */
     .contact-form-container {
         padding: 25px 15px;
     }
-    
+
     .form-group input,
     .form-group select,
     .form-group textarea {
         padding: 10px 12px;
     }
-    
+
     .contact-form .btn {
         padding: 12px;
         font-size: 0.9rem;
     }
-}/* Es
+} /* Es
 tilos para as abas de experiência */
 .experience-tabs {
     margin-top: 50px;
@@ -1948,8 +1951,14 @@ tilos para as abas de experiência */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Marcadores especiais para educação */
@@ -1998,16 +2007,16 @@ tilos para as abas de experiência */
         align-items: center;
         gap: 15px;
     }
-    
+
     .tab-btn {
         min-width: 250px;
     }
-    
+
     .skills-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }
-    
+
     .skill-category .skills-list {
         max-height: 300px;
     }
@@ -2019,15 +2028,15 @@ tilos para as abas de experiência */
         padding: 12px 20px;
         font-size: 0.9rem;
     }
-    
+
     .skill-category {
         padding: 20px;
     }
-    
+
     .category-header h3 {
         font-size: 1.1rem;
     }
-    
+
     .skill-item .skill-name {
         font-size: 0.9rem;
     }
@@ -2046,7 +2055,9 @@ tilos para as abas de experiência */
 }
 
 @keyframes progressLoad {
-    from { width: 0%; }
+    from {
+        width: 0%;
+    }
 }
 
 /* Hover effect melhorado para skill items */
@@ -2061,26 +2072,26 @@ tilos para as abas de experiência */
 }
 
 /* Destaque para habilidades principais */
-.skill-item:has(.skill-progress[style*="95%"]) .skill-name,
-.skill-item:has(.skill-progress[style*="90%"]) .skill-name {
+.skill-item:has(.skill-progress[style*='95%']) .skill-name,
+.skill-item:has(.skill-progress[style*='90%']) .skill-name {
     font-weight: 600;
     color: var(--accent);
-}/* Esti
+} /* Esti
 los especiais para diferentes tipos de experiência */
 
 /* Marcador especial para experiência administrativa */
-.timeline-item:has(.timeline-content h3:contains("Administrativo")) .timeline-marker,
-.timeline-item:has(.timeline-content h3:contains("Recursos Humanos")) .timeline-marker {
+.timeline-item:has(.timeline-content h3:contains('Administrativo')) .timeline-marker,
+.timeline-item:has(.timeline-content h3:contains('Recursos Humanos')) .timeline-marker {
     background-color: #f59e0b;
     box-shadow: 0 0 0 3px #f59e0b;
 }
 
 /* Estilo alternativo para experiência administrativa */
-.timeline-content:has(h3:contains("Administrativo")) {
+.timeline-content:has(h3:contains('Administrativo')) {
     border-left: 4px solid #f59e0b;
 }
 
-.timeline-content:has(h3:contains("Recursos Humanos")) {
+.timeline-content:has(h3:contains('Recursos Humanos')) {
     border-left: 4px solid #f59e0b;
 }
 
@@ -2107,22 +2118,237 @@ los especiais para diferentes tipos de experiência */
 }
 
 /* Hover effect diferenciado para experiências administrativas */
-.timeline-content:has(h3:contains("Administrativo")):hover,
-.timeline-content:has(h3:contains("Recursos Humanos")):hover {
+.timeline-content:has(h3:contains('Administrativo')):hover,
+.timeline-content:has(h3:contains('Recursos Humanos')):hover {
     transform: translateX(10px);
     box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
 }
 
 /* Gradiente especial para experiência freelance */
-.timeline-content:has(h3:contains("Freelancer")) {
+.timeline-content:has(h3:contains('Freelancer')) {
     background: linear-gradient(135deg, var(--card-bg) 0%, rgba(139, 92, 246, 0.05) 100%);
 }
 
 /* Responsividade para novos elementos */
 @media (max-width: 768px) {
-    .timeline-content:has(h3:contains("Administrativo")):hover,
-    .timeline-content:has(h3:contains("Recursos Humanos")):hover,
-    .timeline-content:has(h3:contains("Freelancer")):hover {
+    .timeline-content:has(h3:contains('Administrativo')):hover,
+    .timeline-content:has(h3:contains('Recursos Humanos')):hover,
+    .timeline-content:has(h3:contains('Freelancer')):hover {
         transform: none;
+    }
+}
+/* Sistem
+a de Busca e Filtros */
+.search-container {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px var(--shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.search-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-header h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.results-count {
+    background: var(--accent);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.search-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 15px;
+    color: var(--text-secondary);
+    z-index: 1;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 45px 12px 45px;
+    border: 2px solid var(--border);
+    border-radius: 25px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.clear-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.reset-btn {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    color: var(--text-secondary);
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.active-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.filter-tag {
+    background: var(--accent);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-tag:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+.suggestions {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 5px;
+    box-shadow: 0 4px 12px var(--shadow);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.suggestion-item:hover {
+    background: var(--bg-secondary);
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.no-results i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+/* Responsividade do sistema de busca */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 20px;
+    }
+
+    .search-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 }

@@ -6,14 +6,14 @@ async function testGitHubUser(username) {
         console.log(`Testando usuário: ${username}`);
         const response = await fetch(`https://api.github.com/users/${username}`);
         console.log('Status da resposta:', response.status);
-        
+
         if (response.ok) {
             const user = await response.json();
             console.log('Usuário encontrado:', {
                 login: user.login,
                 name: user.name,
                 public_repos: user.public_repos,
-                followers: user.followers
+                followers: user.followers,
             });
             return true;
         } else {
@@ -26,22 +26,21 @@ async function testGitHubUser(username) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     console.log('=== INICIALIZANDO PORTFOLIO ===');
     console.log('DOM carregado, inicializando funcionalidades...');
-    
+
     initSmoothScroll();
     console.log('✓ Scroll suave inicializado');
-    
+
     // Aguardar um pouco para garantir que todos os elementos estejam prontos
     setTimeout(async () => {
         try {
             const username = 'YanFellippe';
             console.log(`🚀 Iniciando carregamento para: ${username}`);
-            
+
             // Carregar repositórios diretamente
             await loadRepositoriesWithUsername(username);
-            
         } catch (error) {
             console.error('❌ Erro na inicialização:', error);
             const loading = document.getElementById('loading');
@@ -67,21 +66,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Scroll suave para âncoras
 function initSmoothScroll() {
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            
+
             // Só aplicar scroll suave para âncoras internas (que começam com #)
             if (targetId.startsWith('#')) {
                 e.preventDefault();
-                
+
                 const targetSection = document.querySelector(targetId);
-                
+
                 if (targetSection) {
                     targetSection.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'start'
+                        block: 'start',
                     });
                 }
             }
@@ -99,15 +98,15 @@ async function loadRepositories() {
 // Carregar repositórios com username específico
 async function loadRepositoriesWithUsername(username) {
     console.log('🔄 Iniciando carregamento de repositórios para:', username);
-    
+
     const repositoriesGrid = document.getElementById('repositoriesGrid');
     const loading = document.getElementById('loading');
-    
+
     if (!repositoriesGrid || !loading) {
         console.error('❌ Elementos não encontrados');
         return;
     }
-    
+
     try {
         // Mostrar loading
         loading.style.display = 'block';
@@ -115,26 +114,26 @@ async function loadRepositoriesWithUsername(username) {
             <i class="fas fa-spinner fa-spin"></i>
             <p>Carregando repositórios de ${username}...</p>
         `;
-        
+
         console.log('📡 Fazendo requisição para GitHub API...');
-        
+
         const url = `https://api.github.com/users/${username}/repos?sort=updated&per_page=20`;
         console.log('🌐 URL:', url);
-        
+
         const response = await fetch(url);
         console.log('📊 Status da resposta:', response.status);
-        
+
         // Verificar rate limit
         const rateLimitRemaining = response.headers.get('X-RateLimit-Remaining');
         const rateLimitReset = response.headers.get('X-RateLimit-Reset');
-        
+
         console.log('Rate limit restante:', rateLimitRemaining);
-        
+
         if (response.status === 403) {
             // Rate limit excedido
             const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000) : null;
             const resetTimeStr = resetTime ? resetTime.toLocaleTimeString() : 'desconhecido';
-            
+
             loading.innerHTML = `
                 <div style="text-align: center; padding: 2rem;">
                     <i class="fas fa-clock" style="font-size: 2rem; margin-bottom: 1rem; color: #f59e0b;"></i>
@@ -155,24 +154,24 @@ async function loadRepositoriesWithUsername(username) {
             `;
             return;
         }
-        
+
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
         }
-        
+
         const allRepos = await response.json();
         console.log('📦 Total de repositórios recebidos:', allRepos.length);
-        
+
         // Filtrar repositórios
         const repositories = allRepos.filter(repo => {
             return repo.owner.login === username && !repo.private && !repo.fork;
         });
-        
+
         console.log('✅ Repositórios filtrados:', repositories.length);
-        
+
         // Esconder loading
         loading.style.display = 'none';
-        
+
         if (repositories.length === 0) {
             repositoriesGrid.innerHTML = `
                 <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
@@ -187,12 +186,12 @@ async function loadRepositoriesWithUsername(username) {
             `;
             return;
         }
-        
+
         // Renderizar repositórios
         updateStatistics(repositories);
         renderRepositories(repositories, repositoriesGrid);
         updateRepositoryCounter(repositories.length);
-        
+
         // Carregar gráfico de linguagens (sem fazer mais requisições)
         try {
             const languageStats = calculateLanguageStatsFromRepos(repositories);
@@ -201,7 +200,7 @@ async function loadRepositoriesWithUsername(username) {
         } catch (chartError) {
             console.warn('⚠️ Erro ao carregar gráfico:', chartError);
         }
-        
+
         // Carregar contribuições em paralelo
         try {
             console.log('🔍 Carregando contribuições...');
@@ -209,12 +208,36 @@ async function loadRepositoriesWithUsername(username) {
         } catch (contributionsError) {
             console.warn('⚠️ Erro ao carregar contribuições:', contributionsError);
         }
-        
+
+        // Aguardar um pouco e depois atualizar o sistema de busca
+        setTimeout(() => {
+            if (window.searchFilters) {
+                console.log('🔍 Atualizando sistema de busca...');
+                window.searchFilters.refresh();
+            } else {
+                console.log('🔍 Inicializando sistema de busca...');
+                // Tentar inicializar o sistema de busca se não existir
+                try {
+                    window.searchFilters = new SearchAndFilters();
+                } catch (error) {
+                    console.warn('Erro ao inicializar busca:', error);
+                }
+            }
+        }, 2000);
+
         console.log('✅ Carregamento concluído!');
-        
+
+        // Mostrar sistema de busca
+        const searchContainer = document.getElementById('searchContainer');
+        if (searchContainer) {
+            searchContainer.style.display = 'block';
+            setTimeout(() => {
+                searchContainer.classList.add('show');
+            }, 500);
+        }
     } catch (error) {
         console.error('❌ Erro ao carregar repositórios:', error);
-        
+
         loading.innerHTML = `
             <div style="text-align: center; padding: 2rem;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; color: #f59e0b;"></i>
@@ -240,12 +263,10 @@ function renderRepositories(repositories, container) {
         container.innerHTML = '<p>Nenhum repositório encontrado.</p>';
         return;
     }
-    
+
     const repositoryCards = repositories.map(repo => createRepositoryCard(repo)).join('');
     container.innerHTML = repositoryCards;
 }
-
-
 
 // Formatar data para exibição
 function formatDate(dateString) {
@@ -253,7 +274,7 @@ function formatDate(dateString) {
     const now = new Date();
     const diffTime = Math.abs(now - date);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 1) {
         return 'ontem';
     } else if (diffDays < 7) {
@@ -273,46 +294,46 @@ function formatDate(dateString) {
 // Cores das linguagens de programação
 function getLanguageColor(language) {
     const colors = {
-        'JavaScript': '#f1e05a',
-        'TypeScript': '#2b7489',
-        'Python': '#3572A5',
-        'Java': '#b07219',
+        JavaScript: '#f1e05a',
+        TypeScript: '#2b7489',
+        Python: '#3572A5',
+        Java: '#b07219',
         'C++': '#f34b7d',
         'C#': '#239120',
-        'PHP': '#4F5D95',
-        'Ruby': '#701516',
-        'Go': '#00ADD8',
-        'Rust': '#dea584',
-        'Swift': '#ffac45',
-        'Kotlin': '#F18E33',
-        'HTML': '#e34c26',
-        'CSS': '#1572B6',
-        'Vue': '#4FC08D',
-        'React': '#61DAFB',
-        'Angular': '#DD0031',
+        PHP: '#4F5D95',
+        Ruby: '#701516',
+        Go: '#00ADD8',
+        Rust: '#dea584',
+        Swift: '#ffac45',
+        Kotlin: '#F18E33',
+        HTML: '#e34c26',
+        CSS: '#1572B6',
+        Vue: '#4FC08D',
+        React: '#61DAFB',
+        Angular: '#DD0031',
         'Node.js': '#68a063',
-        'Dart': '#0175C2',
-        'Flutter': '#02569B',
-        'C': '#555555',
-        'Shell': '#89e051',
-        'Dockerfile': '#384d54',
-        'SCSS': '#c6538c',
-        'Less': '#1d365d',
-        'Sass': '#a53b70',
-        'JSON': '#292929',
-        'XML': '#0060ac',
-        'Markdown': '#083fa1',
-        'YAML': '#cb171e',
+        Dart: '#0175C2',
+        Flutter: '#02569B',
+        C: '#555555',
+        Shell: '#89e051',
+        Dockerfile: '#384d54',
+        SCSS: '#c6538c',
+        Less: '#1d365d',
+        Sass: '#a53b70',
+        JSON: '#292929',
+        XML: '#0060ac',
+        Markdown: '#083fa1',
+        YAML: '#cb171e',
         'Jupyter Notebook': '#DA5B0B',
-        'R': '#198CE7',
-        'Scala': '#c22d40',
-        'Perl': '#0298c3',
-        'Lua': '#000080',
+        R: '#198CE7',
+        Scala: '#c22d40',
+        Perl: '#0298c3',
+        Lua: '#000080',
         'Objective-C': '#438eff',
-        'Assembly': '#6E4C13',
-        'PowerShell': '#012456'
+        Assembly: '#6E4C13',
+        PowerShell: '#012456',
     };
-    
+
     return colors[language] || '#586069';
 }
 // Atualizar estatísticas gerais
@@ -321,24 +342,24 @@ function updateStatistics(repositories) {
         console.warn('Nenhum repositório para calcular estatísticas');
         return;
     }
-    
+
     const totalRepos = repositories.length;
     const totalStars = repositories.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
     const languages = new Set(repositories.map(repo => repo.language).filter(lang => lang));
     const totalLanguages = languages.size;
-    
+
     // Encontrar a data de atualização mais recente
     const lastUpdate = repositories.reduce((latest, repo) => {
         const repoDate = new Date(repo.updated_at);
         return repoDate > latest ? repoDate : latest;
     }, new Date(0));
-    
+
     // Atualizar elementos do DOM com verificação de existência
     const totalReposEl = document.getElementById('totalRepos');
     const totalStarsEl = document.getElementById('totalStars');
     const totalLanguagesEl = document.getElementById('totalLanguages');
     const lastUpdateEl = document.getElementById('lastUpdate');
-    
+
     if (totalReposEl) totalReposEl.textContent = totalRepos;
     if (totalStarsEl) totalStarsEl.textContent = totalStars;
     if (totalLanguagesEl) totalLanguagesEl.textContent = totalLanguages;
@@ -367,53 +388,63 @@ function loadLanguagesChart(repositories) {
 // Renderizar gráfico de linguagens com Chart.js
 function renderLanguagesChart(languageStats) {
     const ctx = document.getElementById('languagesChart').getContext('2d');
-    
+
     const data = {
         labels: languageStats.map(stat => stat.language),
-        datasets: [{
-            data: languageStats.map(stat => parseFloat(stat.percentage)),
-            backgroundColor: languageStats.map(stat => getLanguageColor(stat.language)),
-            borderWidth: 2,
-            borderColor: getComputedStyle(document.documentElement).getPropertyValue('--card-bg')
-        }]
+        datasets: [
+            {
+                data: languageStats.map(stat => parseFloat(stat.percentage)),
+                backgroundColor: languageStats.map(stat => getLanguageColor(stat.language)),
+                borderWidth: 2,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue(
+                    '--card-bg'
+                ),
+            },
+        ],
     };
-    
+
     const options = {
         responsive: true,
         maintainAspectRatio: true,
         plugins: {
             legend: {
-                display: false
+                display: false,
             },
             tooltip: {
                 callbacks: {
-                    label: function(context) {
+                    label: function (context) {
                         return `${context.label}: ${context.parsed}%`;
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        },
     };
-    
+
     new Chart(ctx, {
         type: 'doughnut',
         data: data,
-        options: options
+        options: options,
     });
 }
 
 // Renderizar tags das linguagens
 function renderLanguageTags(languageStats) {
     const container = document.getElementById('languagesTags');
-    
-    const tags = languageStats.map(stat => `
+
+    const tags = languageStats
+        .map(
+            stat => `
         <div class="language-tag">
-            <span class="language-dot" style="background-color: ${getLanguageColor(stat.language)}"></span>
+            <span class="language-dot" style="background-color: ${getLanguageColor(
+                stat.language
+            )}"></span>
             <span class="language-name">${stat.language}</span>
             <span class="percentage">${stat.percentage}%</span>
         </div>
-    `).join('');
-    
+    `
+        )
+        .join('');
+
     container.innerHTML = tags;
 }
 
@@ -424,15 +455,18 @@ function createRepositoryCard(repo) {
     const stars = repo.stargazers_count || 0;
     const updatedAt = formatDate(repo.updated_at);
     const languageColor = getLanguageColor(language);
-    
+
     // Adicionar badge de linguagem se existir
-    const languageBadge = language !== 'N/A' ? `
+    const languageBadge =
+        language !== 'N/A'
+            ? `
         <div class="repo-language-badge" style="background-color: ${languageColor}20; color: ${languageColor}; border: 1px solid ${languageColor}40;">
             <span class="language-dot" style="background-color: ${languageColor}"></span>
             ${language}
         </div>
-    ` : '';
-    
+    `
+            : '';
+
     return `
         <div class="repo-card">
             <div class="repo-header">
@@ -469,14 +503,14 @@ function initRepositoryTabs() {
 async function testCustomUsername() {
     const input = document.getElementById('usernameInput');
     const username = input.value.trim();
-    
+
     if (!username) {
         alert('Por favor, digite um username');
         return;
     }
-    
+
     console.log(`Testando username customizado: ${username}`);
-    
+
     const loading = document.getElementById('loading');
     if (loading) {
         loading.innerHTML = `
@@ -484,9 +518,9 @@ async function testCustomUsername() {
             <p>Testando username "${username}"...</p>
         `;
     }
-    
+
     const exists = await testGitHubUser(username);
-    
+
     if (exists) {
         console.log(`Username ${username} é válido! Carregando repositórios...`);
         loadRepositoriesWithUsername(username);
@@ -514,12 +548,12 @@ async function testCustomUsername() {
 // Função para mostrar repositórios de exemplo quando API não está disponível
 function showSampleRepos() {
     console.log('📋 Mostrando repositórios de exemplo...');
-    
+
     const repositoriesGrid = document.getElementById('repositoriesGrid');
     const loading = document.getElementById('loading');
-    
+
     if (loading) loading.style.display = 'none';
-    
+
     // Repositórios de exemplo
     const sampleRepos = [
         {
@@ -528,7 +562,7 @@ function showSampleRepos() {
             language: 'JavaScript',
             stargazers_count: 5,
             html_url: 'https://github.com/YanFellippe/portfolio-website',
-            updated_at: new Date().toISOString()
+            updated_at: new Date().toISOString(),
         },
         {
             name: 'react-todo-app',
@@ -536,7 +570,7 @@ function showSampleRepos() {
             language: 'TypeScript',
             stargazers_count: 12,
             html_url: 'https://github.com/YanFellippe/react-todo-app',
-            updated_at: new Date(Date.now() - 86400000).toISOString()
+            updated_at: new Date(Date.now() - 86400000).toISOString(),
         },
         {
             name: 'python-data-analysis',
@@ -544,7 +578,7 @@ function showSampleRepos() {
             language: 'Python',
             stargazers_count: 8,
             html_url: 'https://github.com/YanFellippe/python-data-analysis',
-            updated_at: new Date(Date.now() - 172800000).toISOString()
+            updated_at: new Date(Date.now() - 172800000).toISOString(),
         },
         {
             name: 'node-api-rest',
@@ -552,27 +586,28 @@ function showSampleRepos() {
             language: 'JavaScript',
             stargazers_count: 15,
             html_url: 'https://github.com/YanFellippe/node-api-rest',
-            updated_at: new Date(Date.now() - 259200000).toISOString()
-        }
+            updated_at: new Date(Date.now() - 259200000).toISOString(),
+        },
     ];
-    
+
     // Atualizar estatísticas com dados de exemplo
     updateStatistics(sampleRepos);
-    
+
     // Renderizar repositórios de exemplo
     renderRepositories(sampleRepos, repositoriesGrid);
-    
+
     // Atualizar contador
     updateRepositoryCounter(sampleRepos.length);
-    
+
     // Mostrar gráfico de linguagens
     const languageStats = calculateLanguageStatsFromRepos(sampleRepos);
     renderLanguagesChart(languageStats);
     renderLanguageTags(languageStats);
-    
+
     // Adicionar aviso
     const warning = document.createElement('div');
-    warning.style.cssText = 'text-align: center; padding: 1rem; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; margin-bottom: 1rem; color: #92400e;';
+    warning.style.cssText =
+        'text-align: center; padding: 1rem; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; margin-bottom: 1rem; color: #92400e;';
     warning.innerHTML = `
         <i class="fas fa-info-circle"></i>
         <strong>Repositórios de Exemplo</strong> - A API do GitHub está temporariamente indisponível devido ao rate limit.
@@ -583,20 +618,20 @@ function showSampleRepos() {
 // Função para calcular estatísticas de linguagens sem fazer requisições adicionais
 function calculateLanguageStatsFromRepos(repositories) {
     const languageCount = {};
-    
+
     repositories.forEach(repo => {
         if (repo.language) {
             languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
         }
     });
-    
+
     const total = Object.values(languageCount).reduce((sum, count) => sum + count, 0);
-    
+
     return Object.entries(languageCount)
         .map(([language, count]) => ({
             language,
             bytes: count * 1000, // Valor fictício
-            percentage: ((count / total) * 100).toFixed(1)
+            percentage: ((count / total) * 100).toFixed(1),
         }))
         .sort((a, b) => b.bytes - a.bytes);
 }

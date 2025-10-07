@@ -1,4 +1,3 @@
-// Funcionalidades principais da página
 console.log('JavaScript carregado!');
 
 // Função de teste para verificar se o usuário existe
@@ -201,6 +200,14 @@ async function loadRepositoriesWithUsername(username) {
             renderLanguageTags(languageStats);
         } catch (chartError) {
             console.warn('⚠️ Erro ao carregar gráfico:', chartError);
+        }
+        
+        // Carregar contribuições em paralelo
+        try {
+            console.log('🔍 Carregando contribuições...');
+            await loadUserContributions(username);
+        } catch (contributionsError) {
+            console.warn('⚠️ Erro ao carregar contribuições:', contributionsError);
         }
         
         console.log('✅ Carregamento concluído!');

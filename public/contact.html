@@ -19,6 +19,8 @@
             <nav class="nav">
                 <ul class="nav-list">
                     <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../index.html#repositorios" class="nav-link">Projetos</a></li>
+                    <li><a href="../index.html#contribuicoes" class="nav-link">Contribuições</a></li>
                     <li><a href="about-me.html" class="nav-link">Sobre</a></li>
                     <li><a href="contact.html" class="nav-link active">Contato</a></li>
                 </ul>
@@ -136,7 +138,7 @@
         <div class="container">
             <div class="footer-content">
                 <p class="footer-text">
-                    Feito com 💻 por <strong>Yan Fellippe</strong>
+                    © 2024 <strong>Yan Fellippe</strong> - Desenvolvedor Full Stack
                 </p>
                 <div class="social-links">
                     <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
@@ -192,7 +194,7 @@
                 const message = formData.get('message');
 
                 // Criar link mailto com os dados
-                const mailtoLink = `mailto:yanfellippe@email.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(`Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${message}`)}`;
+                const mailtoLink = `mailto:yangomesbasilio@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(`Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${message}`)}`;
 
                 // Abrir cliente de email
                 window.location.href = mailtoLink;

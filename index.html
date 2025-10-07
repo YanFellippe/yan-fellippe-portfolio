@@ -20,6 +20,8 @@
             <nav class="nav">
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#repositorios" class="nav-link">Projetos</a></li>
+                    <li><a href="#contribuicoes" class="nav-link">Contribuições</a></li>
                     <li><a href="public/about-me.html" class="nav-link">Sobre</a></li>
                     <li><a href="public/contact.html" class="nav-link">Contato</a></li>
                 </ul>
@@ -136,12 +138,35 @@
         </div>
     </section>
 
+    <!-- Seção de Contribuições -->
+    <section id="contribuicoes" class="contributions">
+        <div class="container">
+            <div class="contributions-header">
+                <h2 class="section-title">Minhas Contribuições</h2>
+                <p class="section-subtitle">Repositórios de outros usuários onde contribuí</p>
+                <div class="contributions-counter">
+                    <span id="contributionsCounter">Carregando contribuições...</span>
+                </div>
+            </div>
+            <div class="loading" id="contributionsLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Buscando contribuições...</p>
+            </div>
+            <div class="error-message" id="contributionsError" style="display: none;">
+                <!-- Mensagem de erro será inserida aqui -->
+            </div>
+            <div class="contributions-grid" id="contributionsGrid">
+                <!-- As contribuições serão carregadas dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <p class="footer-text">
-                    Feito com 💻 por <strong>Yan Fellippe</strong>
+                    © 2024 <strong>Yan Fellippe</strong> - Desenvolvedor Full Stack
                 </p>
                 <div class="social-links">
                     <a href="https://github.com/YanFellippe" target="_blank" class="social-link">
@@ -230,6 +255,7 @@
     </script>
 
     <script src="src/js/api.js"></script>
+    <script src="src/js/contribuitions.js"></script>
     <script src="src/js/index.js"></script>
 </body>
 

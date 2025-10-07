@@ -1,6 +1,5 @@
-// API para buscar dados do GitHub
 
-// Função principal para buscar repositórios do GitHub
+// API para buscar dados do GitHub - Função principal para buscar repositórios do GitHub
 async function fetchGitHubRepositories(username, options = {}) {
     const {
         sort = 'updated',
@@ -186,4 +185,4 @@ async function fetchGitHubRepositoriesWithCache(username, options = {}) {
     } catch (error) {
         throw error;
     }
-}// Funções de contribuições removidas - focando apenas em repositórios próprios
+}

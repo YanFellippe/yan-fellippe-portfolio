@@ -83,10 +83,6 @@ O projeto foi desenvolvido com foco em:
 - **SEO**: Estrutura semântica e meta tags
 - **Responsividade**: Design mobile-first
 
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ## 👨‍💻 Autor
 
 **Yan Fellippe**

@@ -1072,7 +1072,9 @@ Seção de Contribuições */
         align-items: flex-start;
     }
 }
-/ * Estilos para contribuições detalhadas */ .contribution-card.detailed {
+
+/* Estilos para contribuições detalhadas */ 
+.contribution-card.detailed {
     position: relative;
 }
 
@@ -2351,4 +2353,161 @@ a de Busca e Filtros */
         grid-template-columns: 1fr;
         gap: 10px;
     }
+}
+/* Estilos para múltiplas linguagens nos repositórios */
+.repo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+    min-height: 32px;
+    align-items: flex-start;
+}
+
+.repo-language-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+    white-space: nowrap;
+}
+
+.repo-language-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.repo-language-badge .language-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.repo-language-badge .language-name {
+    font-weight: 600;
+}
+
+.repo-language-badge .language-percentage {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-left: 2px;
+}
+
+.repo-language-badge.no-language {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    font-style: italic;
+}
+
+.repo-languages-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.repo-languages-loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsividade para badges de linguagem */
+@media (max-width: 768px) {
+    .repo-tags {
+        gap: 6px;
+    }
+
+    .repo-language-badge {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+    }
+
+    .repo-language-badge .language-percentage {
+        display: none; /* Ocultar percentual em telas pequenas */
+    }
+}
+
+/* Animação de entrada para as linguagens */
+.repo-language-badge {
+    opacity: 0;
+    transform: scale(0.8);
+    animation: languageBadgeIn 0.4s ease forwards;
+}
+
+.repo-language-badge:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.repo-language-badge:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.repo-language-badge:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.repo-language-badge:nth-child(4) {
+    animation-delay: 0.4s;
+}
+.repo-language-badge:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+@keyframes languageBadgeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Melhorar o layout do card para acomodar múltiplas linguagens */
+.repo-card {
+    min-height: 200px; /* Garantir altura mínima */
+}
+
+.repo-card .repo-description {
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+/* Estilo especial para quando há muitas linguagens */
+.repo-tags.many-languages {
+    max-height: 80px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.repo-tags.many-languages::-webkit-scrollbar {
+    width: 3px;
+}
+
+.repo-tags.many-languages::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.repo-tags.many-languages::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.repo-tags.many-languages::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
 }

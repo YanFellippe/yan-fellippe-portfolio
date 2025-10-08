@@ -192,6 +192,9 @@ async function loadRepositoriesWithUsername(username) {
         renderRepositories(repositories, repositoriesGrid);
         updateRepositoryCounter(repositories.length);
 
+        // Carregar linguagens detalhadas para cada repositório
+        loadRepositoryLanguages(username, repositories);
+
         // Carregar gráfico de linguagens (sem fazer mais requisições)
         try {
             const languageStats = calculateLanguageStatsFromRepos(repositories);
@@ -449,6 +452,63 @@ function renderLanguageTags(languageStats) {
 }
 
 // Criar card individual do repositório com tags de linguagem
+// Buscar linguagens detalhadas de um repositório
+async function fetchRepositoryLanguages(username, repoName) {
+    try {
+        const response = await fetch(
+            `https://api.github.com/repos/${username}/${repoName}/languages`
+        );
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (error) {
+        console.warn(`Erro ao buscar linguagens do repositório ${repoName}:`, error);
+    }
+    return null;
+}
+
+// Processar linguagens e calcular percentuais
+function processLanguages(languagesData) {
+    if (!languagesData) return [];
+
+    const total = Object.values(languagesData).reduce((sum, bytes) => sum + bytes, 0);
+
+    return Object.entries(languagesData)
+        .map(([language, bytes]) => ({
+            name: language,
+            bytes: bytes,
+            percentage: ((bytes / total) * 100).toFixed(1),
+        }))
+        .sort((a, b) => b.bytes - a.bytes)
+        .slice(0, 5); // Mostrar no máximo 5 linguagens
+}
+
+// Criar badges de linguagens múltiplas
+function createLanguageBadges(languages) {
+    if (!languages || languages.length === 0) {
+        return '<div class="repo-language-badge no-language">Sem linguagens detectadas</div>';
+    }
+
+    const badges = languages
+        .map((lang, index) => {
+            const color = getLanguageColor(lang.name);
+            return `
+            <div class="repo-language-badge" 
+                 style="background-color: ${color}20; color: ${color}; border: 1px solid ${color}40; animation-delay: ${
+                index * 0.1
+            }s;"
+                 title="${lang.name}: ${lang.percentage}%">
+                <span class="language-dot" style="background-color: ${color}"></span>
+                <span class="language-name">${lang.name}</span>
+                <span class="language-percentage">${lang.percentage}%</span>
+            </div>
+        `;
+        })
+        .join('');
+
+    return badges;
+}
+
 function createRepositoryCard(repo) {
     const description = repo.description || 'Sem descrição disponível';
     const language = repo.language || 'N/A';
@@ -456,19 +516,16 @@ function createRepositoryCard(repo) {
     const updatedAt = formatDate(repo.updated_at);
     const languageColor = getLanguageColor(language);
 
-    // Adicionar badge de linguagem se existir
-    const languageBadge =
-        language !== 'N/A'
-            ? `
-        <div class="repo-language-badge" style="background-color: ${languageColor}20; color: ${languageColor}; border: 1px solid ${languageColor}40;">
-            <span class="language-dot" style="background-color: ${languageColor}"></span>
-            ${language}
+    // Placeholder para linguagens (será preenchido depois)
+    const languagesPlaceholder = `
+        <div class="repo-languages-loading" data-repo="${repo.name}">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Carregando linguagens...</span>
         </div>
-    `
-            : '';
+    `;
 
     return `
-        <div class="repo-card">
+        <div class="repo-card" data-repo-name="${repo.name}">
             <div class="repo-header">
                 <a href="${repo.html_url}" target="_blank" class="repo-name">
                     ${repo.name}
@@ -479,8 +536,8 @@ function createRepositoryCard(repo) {
                 </div>
             </div>
             <p class="repo-description">${description}</p>
-            <div class="repo-tags">
-                ${languageBadge}
+            <div class="repo-tags" id="languages-${repo.name}">
+                ${languagesPlaceholder}
             </div>
             <div class="repo-footer">
                 <div class="repo-language">
@@ -554,7 +611,7 @@ function showSampleRepos() {
 
     if (loading) loading.style.display = 'none';
 
-    // Repositórios de exemplo
+    // Repositórios de exemplo com múltiplas linguagens
     const sampleRepos = [
         {
             name: 'portfolio-website',
@@ -590,11 +647,46 @@ function showSampleRepos() {
         },
     ];
 
+    // Linguagens de exemplo para cada repositório
+    const sampleLanguages = {
+        'portfolio-website': [
+            { name: 'JavaScript', percentage: '45.2' },
+            { name: 'HTML', percentage: '32.1' },
+            { name: 'CSS', percentage: '22.7' },
+        ],
+        'react-todo-app': [
+            { name: 'TypeScript', percentage: '68.4' },
+            { name: 'JavaScript', percentage: '18.3' },
+            { name: 'CSS', percentage: '10.1' },
+            { name: 'HTML', percentage: '3.2' },
+        ],
+        'python-data-analysis': [
+            { name: 'Python', percentage: '89.7' },
+            { name: 'Jupyter Notebook', percentage: '10.3' },
+        ],
+        'node-api-rest': [
+            { name: 'JavaScript', percentage: '78.9' },
+            { name: 'JSON', percentage: '12.4' },
+            { name: 'Dockerfile', percentage: '5.2' },
+            { name: 'Shell', percentage: '3.5' },
+        ],
+    };
+
     // Atualizar estatísticas com dados de exemplo
     updateStatistics(sampleRepos);
 
     // Renderizar repositórios de exemplo
     renderRepositories(sampleRepos, repositoriesGrid);
+
+    // Simular carregamento de linguagens para repositórios de exemplo
+    setTimeout(() => {
+        sampleRepos.forEach(repo => {
+            const languagesContainer = document.getElementById(`languages-${repo.name}`);
+            if (languagesContainer && sampleLanguages[repo.name]) {
+                languagesContainer.innerHTML = createLanguageBadges(sampleLanguages[repo.name]);
+            }
+        });
+    }, 1000);
 
     // Atualizar contador
     updateRepositoryCounter(sampleRepos.length);
@@ -639,3 +731,59 @@ function calculateLanguageStatsFromRepos(repositories) {
 // Tornar as funções globais
 window.testCustomUsername = testCustomUsername;
 window.showSampleRepos = showSampleRepos;
+
+// Carregar linguagens para todos os repositórios
+async function loadRepositoryLanguages(username, repositories) {
+    console.log('🔍 Carregando linguagens detalhadas dos repositórios...');
+
+    const languagePromises = repositories.map(async repo => {
+        try {
+            const languages = await fetchRepositoryLanguages(username, repo.name);
+            const processedLanguages = processLanguages(languages);
+
+            // Atualizar o card com as linguagens
+            const languagesContainer = document.getElementById(`languages-${repo.name}`);
+            if (languagesContainer) {
+                languagesContainer.innerHTML = createLanguageBadges(processedLanguages);
+            }
+
+            return { repo: repo.name, languages: processedLanguages };
+        } catch (error) {
+            console.warn(`Erro ao carregar linguagens do ${repo.name}:`, error);
+
+            // Mostrar linguagem principal como fallback
+            const languagesContainer = document.getElementById(`languages-${repo.name}`);
+            if (languagesContainer) {
+                const fallbackLanguage = repo.language
+                    ? [
+                          {
+                              name: repo.language,
+                              percentage: '100.0',
+                          },
+                      ]
+                    : [];
+                languagesContainer.innerHTML = createLanguageBadges(fallbackLanguage);
+            }
+
+            return { repo: repo.name, languages: [] };
+        }
+    });
+
+    // Processar em lotes para evitar rate limit
+    const batchSize = 3;
+    const results = [];
+
+    for (let i = 0; i < languagePromises.length; i += batchSize) {
+        const batch = languagePromises.slice(i, i + batchSize);
+        const batchResults = await Promise.all(batch);
+        results.push(...batchResults);
+
+        // Pequena pausa entre lotes
+        if (i + batchSize < languagePromises.length) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+    }
+
+    console.log('✅ Linguagens carregadas para todos os repositórios!');
+    return results;
+}

@@ -191,6 +191,10 @@
                     <p class="section-subtitle">Repositórios de outros usuários onde contribuí</p>
                     <div class="contributions-counter">
                         <span id="contributionsCounter">Carregando contribuições...</span>
+                        <button onclick="window.forceLoadContributions()" class="btn btn-secondary"
+                            style="margin-left: 10px; font-size: 0.8rem; padding: 5px 10px;">
+                            <i class="fas fa-sync-alt"></i> Recarregar Contribuições
+                        </button>
                     </div>
                 </div>
                 <div class="loading" id="contributionsLoading">
@@ -313,11 +317,80 @@
                 showSearchSystem();
             }, 3000);
 
+            // Função para forçar carregamento de contribuições
+            function forceLoadContributions() {
+                console.log('🔄 Forçando carregamento de contribuições...');
+
+                if (window.loadUserContributions) {
+                    window.loadUserContributions('YanFellippe').catch(error => {
+                        console.error('Erro ao forçar carregamento:', error);
+
+                        // Se falhar, mostrar contribuições de exemplo
+                        if (window.renderDetailedContributions) {
+                            const exampleContributions = [
+                                {
+                                    id: 'example-contrib-1',
+                                    name: 'awesome-open-source',
+                                    full_name: 'community/awesome-open-source',
+                                    html_url: 'https://github.com/community/awesome-open-source',
+                                    description: 'Uma coleção incrível de projetos open source',
+                                    owner: { login: 'community' },
+                                    stargazers_count: 2500,
+                                    forks_count: 450,
+                                    language: 'JavaScript',
+                                    contributionSummary: {
+                                        totalContributions: 8,
+                                        contributions: [
+                                            { type: 'PullRequest', title: 'Add new awesome project', date: '2024-01-15', url: '#' },
+                                            { type: 'Issue', title: 'Bug in search functionality', date: '2024-01-10', url: '#' }
+                                        ],
+                                        lastActivity: '2024-01-15',
+                                        types: ['PullRequest', 'Issue']
+                                    }
+                                },
+                                {
+                                    id: 'example-contrib-2',
+                                    name: 'developer-tools',
+                                    full_name: 'devtools/developer-tools',
+                                    html_url: 'https://github.com/devtools/developer-tools',
+                                    description: 'Ferramentas essenciais para desenvolvedores',
+                                    owner: { login: 'devtools' },
+                                    stargazers_count: 1200,
+                                    forks_count: 180,
+                                    language: 'Python',
+                                    contributionSummary: {
+                                        totalContributions: 5,
+                                        contributions: [
+                                            { type: 'PullRequest', title: 'Improve CLI interface', date: '2023-11-30', url: '#' }
+                                        ],
+                                        lastActivity: '2023-11-30',
+                                        types: ['PullRequest']
+                                    }
+                                }
+                            ];
+
+                            window.renderDetailedContributions(exampleContributions, 'contributionsGrid');
+
+                            const counter = document.getElementById('contributionsCounter');
+                            if (counter) {
+                                counter.textContent = '2 repositórios • 13 contribuições totais (exemplo)';
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Função loadUserContributions não disponível');
+                }
+            }
+
+            // Tentar carregar contribuições após 5 segundos
+            setTimeout(forceLoadContributions, 5000);
+
             // Disponibilizar globalmente
             window.setTheme = setTheme;
             window.toggleTheme = toggleTheme;
             window.testAPI = testAPI;
             window.showSearchSystem = showSearchSystem;
+            window.forceLoadContributions = forceLoadContributions;
         </script>
 
         <!-- Scripts JavaScript -->

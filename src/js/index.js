@@ -207,7 +207,22 @@ async function loadRepositoriesWithUsername(username) {
         // Carregar contribuições em paralelo
         try {
             console.log('🔍 Carregando contribuições...');
-            await loadUserContributions(username);
+
+            // Verificar se a função existe
+            if (typeof loadUserContributions === 'function') {
+                console.log('✅ Função loadUserContributions encontrada');
+                await loadUserContributions(username);
+                console.log('✅ Contribuições carregadas com sucesso');
+            } else {
+                console.error('❌ Função loadUserContributions não encontrada');
+                // Tentar carregar do window
+                if (window.loadUserContributions) {
+                    console.log('✅ Função encontrada no window, tentando carregar...');
+                    await window.loadUserContributions(username);
+                } else {
+                    console.error('❌ Função não encontrada nem no window');
+                }
+            }
         } catch (contributionsError) {
             console.warn('⚠️ Erro ao carregar contribuições:', contributionsError);
         }
@@ -238,6 +253,31 @@ async function loadRepositoriesWithUsername(username) {
                 searchContainer.classList.add('show');
             }, 500);
         }
+
+        // Verificação adicional para contribuições
+        setTimeout(() => {
+            const contributionsGrid = document.getElementById('contributionsGrid');
+            const contributionsLoading = document.getElementById('contributionsLoading');
+
+            if (contributionsGrid && contributionsGrid.innerHTML.trim() === '') {
+                console.log('🔄 Contribuições não carregadas, tentando novamente...');
+
+                if (contributionsLoading) {
+                    contributionsLoading.style.display = 'block';
+                    contributionsLoading.innerHTML = `
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Recarregando contribuições...</p>
+                    `;
+                }
+
+                // Tentar carregar contribuições novamente
+                if (window.loadUserContributions) {
+                    window.loadUserContributions(username).catch(error => {
+                        console.error('Erro na segunda tentativa:', error);
+                    });
+                }
+            }
+        }, 3000);
     } catch (error) {
         console.error('❌ Erro ao carregar repositórios:', error);
 
